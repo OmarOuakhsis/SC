@@ -1,0 +1,21 @@
+server:
+  port: 9999
+
+spring:
+  main:
+    web-application-type: reactive # Assurez-vous d'utiliser le type d'application réactif
+  application:
+    name: gateway-service
+  cloud:
+    discovery:
+      enabled: true # Active la découverte des services
+    gateway:
+      routes:
+        - id: r1
+          uri: http://localhost:8081
+          predicates:
+            - Path=/customers/** # Route vers le service Customer
+        - id: r2
+          uri: http://localhost:8082
+          predicates:
+            - Path=/products/** # Route vers le service Product
